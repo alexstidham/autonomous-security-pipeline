@@ -1,0 +1,6 @@
+.env
+__pycache__/
+.pytest_cache/
+mlruns/
+.DS_Store
+mock_target_project/
