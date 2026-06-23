@@ -55,3 +55,4 @@ This project is built as a microservice framework that separates execution envir
 ### 1. Initialize the MLflow Telemetry Server
 Launch the supervisor tracking dashboard natively on your local environment loop:
 ```bash
+mlflow server --host 0.0.0.0 --port 8080
