@@ -74,7 +74,7 @@ Before spinning up the container ecosystem, install MLflow and start the trackin
 pip install mlflow
 mlflow server --host 0.0.0.0 --port 8080
 ```
-The visualization dashboard will be live at http://localhost:8080.
+_The visualization dashboard will be live at http://localhost:8080._
 
 ### 3. Build and Run the Docker Sandbox
 Build the isolated environment image. This packages your FastAPI app and LangGraph state engine inside a secure container sandbox. We use a volume mount (-v) to give the container temporary, restricted access to the target repository you want to scan.
@@ -106,9 +106,10 @@ curl -X POST "http://localhost:8000/api/v1/audit" \
        "auto_patch": true
      }'
 ```
+
 ### What Happens Behind the Scenes:
-1. ** FastAPI Gateway ** captures the request asynchronously and instantiates the graph runtime memory.
-2. ** Auditor Agent ** evaluates the raw code blocks alongside your system's `arch_diagram.png` file to check for physical layout vs. code standard drift.
+1. **FastAPI Gateway** captures the request asynchronously and instantiates the graph runtime memory.
+2. **Auditor Agent** evaluates the raw code blocks alongside your system's `arch_diagram.png` file to check for physical layout vs. code standard drift.
 3. If an OWASP exposure is flagged, the graph routes the file context to the Patch Agent, which updates the target code inside the Docker volume mount sandbox.
 4. The pipeline routes changes to an internal Validator Node to lint/test the code. If it catches a compiler break, the state loops backwards into the Patch node automatically to self-correct.
 5. All execution trace branches, latency metrics, and API token counts are streamed live to your host ** MLflow ** dashboard.
