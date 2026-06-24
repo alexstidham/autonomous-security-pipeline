@@ -61,11 +61,12 @@ Clone the repository, create an environment file to store your credentials, and 
 git clone https://github.com/alexstidham/autonomous-security-pipeline.git
 cd autonomous-security-pipeline
 touch .env
-
+```
 Open `.env` and add your OpenAI API key and the MLflow local network route:
 ```env
 OPENAI_API_KEY=sk-proj-YOUR_ACTUAL_KEY_HERE
 MLFLOW_TRACKING_URI=[http://host.docker.internal:8080](http://host.docker.internal:8080)
+```
 
 pip install mlflow
 mlflow server --host 0.0.0.0 --port 8080
