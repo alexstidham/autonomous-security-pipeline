@@ -62,4 +62,21 @@ git clone https://github.com/alexstidham/autonomous-security-pipeline.git
 cd autonomous-security-pipeline
 touch .env
 
-Open .env and 
+Open `.env` and add your OpenAI API key and the MLflow local network route:
+```env
+OPENAI_API_KEY=sk-proj-YOUR_ACTUAL_KEY_HERE
+MLFLOW_TRACKING_URI=[http://host.docker.internal:8080](http://host.docker.internal:8080)
+
+pip install mlflow
+mlflow server --host 0.0.0.0 --port 8080
+
+# Build the production image
+docker build -t reposentry-pipeline:latest .
+
+# Spin up the container sandbox, mapping port 8000 and mounting your target local repository
+docker run -d \
+  -p 8000:8000 \
+  --env-file .env \
+  -v /path/to/your/local/target/repo:/app/target_repo \
+  --name reposentry-agent-container \
+  reposentry-pipeline:latest
