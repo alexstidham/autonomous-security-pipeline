@@ -107,3 +107,4 @@ curl -X POST "http://localhost:8000/api/v1/audit" \
      }'
 ```
 ### What Happens Behind the Scenes:
+* ** 1. FastAPI Gateway captures the request asynchronously and instantiates the graph runtime memory. **
