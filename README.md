@@ -1,4 +1,4 @@
-# Autonomous Multimodal Security Pipeline
+# RepoSentry - Autonomous Multimodal Security Pipeline
 
 An enterprise-grade, containerized AI agent architecture built to automatically analyze software repositories for security vulnerabilities, cross-reference them with system architecture diagrams, execute automated patches, and log production telemetry.
 
