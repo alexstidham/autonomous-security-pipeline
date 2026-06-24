@@ -52,11 +52,14 @@ This project is built as a microservice framework that separates execution envir
 
 ## 🚀 Quick Start & Deployment Sequence
 
-### 1. Initialize the MLflow Telemetry Server
-Launch the supervisor tracking dashboard natively on your local environment loop:
+Follow these steps to run the autonomous auditing and patching pipeline locally in an isolated sandbox.
+
+### 1. Prerequisites & Environment Setup
+Clone the repository, create an environment file to store your credentials, and configure your local pathing:
+
 ```bash
-git clone [https://github.com/YOUR_GITHUB_USERNAME/autonomous-security-pipeline.git](https://github.com/YOUR_GITHUB_USERNAME/autonomous-security-pipeline.git)
+git clone https://github.com/alexstidham/autonomous-security-pipeline.git
 cd autonomous-security-pipeline
 touch .env
 
-mlflow server --host 0.0.0.0 --port 8080
+Open .env and 
