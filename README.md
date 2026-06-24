@@ -111,5 +111,5 @@ curl -X POST "http://localhost:8000/api/v1/audit" \
 1. **FastAPI Gateway** captures the request asynchronously and instantiates the graph runtime memory.
 2. **Auditor Agent** evaluates the raw code blocks alongside your system's `arch_diagram.png` file to check for physical layout vs. code standard drift.
 3. If an OWASP exposure is flagged, the graph routes the file context to the Patch Agent, which updates the target code inside the Docker volume mount sandbox.
-4. The pipeline routes changes to an internal Validator Node to lint/test the code. If it catches a compiler break, the state loops backwards into the Patch node automatically to self-correct.
+4. The pipeline routes changes to an internal **Validator Node** to lint/test the code. If it catches a compiler break, the state loops backwards into the Patch node automatically to self-correct.
 5. All execution trace branches, latency metrics, and API token counts are streamed live to your host ** MLflow ** dashboard.
