@@ -65,12 +65,20 @@ touch .env
 Open `.env` and add your OpenAI API key and the MLflow local network route:
 ```env
 OPENAI_API_KEY=sk-proj-YOUR_ACTUAL_KEY_HERE
-MLFLOW_TRACKING_URI=[http://host.docker.internal:8080](http://host.docker.internal:8080)
+MLFLOW_TRACKING_URI=http://host.docker.internal:8080
 ```
 
+### 2. Launch the MLflow Telemetry Server
+Before spinning up the container ecosystem, install MLflow and start the tracking server on your host machine so the container can stream execution telemetry to it:
+```bash
 pip install mlflow
 mlflow server --host 0.0.0.0 --port 8080
+```
+The visualization dashboard will be live at http://localhost:8080.
 
+### 3. Build and Run the Docker Sandbox
+Build the isolated environment image. This packages your FastAPI app and LangGraph state engine inside a secure container sandbox. We use a volume mount (-v) to give the container temporary, restricted access to the target repository you want to scan.
+```bash
 # Build the production image
 docker build -t reposentry-pipeline:latest .
 
@@ -81,3 +89,21 @@ docker run -d \
   -v /path/to/your/local/target/repo:/app/target_repo \
   --name reposentry-agent-container \
   reposentry-pipeline:latest
+```
+## ⚡ Triggering an Autonomous Audit
+Once the container is healthy and running on port 8000, you can dispatch the pipeline using a standard network payload from your host machine.
+
+### Execution Payload
+
+Execute this `curl` command from your host terminal to trigger the LangGraph orchestration loop over your volume-mounted target repository:
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/audit" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "repo_path": "/app/target_repo",
+       "architecture_diagram_path": "/app/target_repo/docs/arch_diagram.png",
+       "auto_patch": true
+     }'
+```
+### What Happens Behind the Scenes:
